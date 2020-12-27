@@ -1,0 +1,27 @@
+{
+  "name": "social_media_app_MERNG",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/6ecuw/social_media_app_MERNG.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/6ecuw/social_media_app_MERNG/issues"
+  },
+  "homepage": "https://github.com/6ecuw/social_media_app_MERNG#readme",
+  "dependencies": {
+    "apollo-server": "^2.19.1",
+    "bcryptjs": "^2.4.3",
+    "graphql": "^15.4.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.11.8"
+  }
+}
