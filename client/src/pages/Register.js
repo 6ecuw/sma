@@ -1,10 +1,64 @@
+import { gql } from '@apollo/client'
 import React from 'react'
+import { Button, Container, Form, Header } from 'semantic-ui-react'
+import { useForm } from '../utils/hooks'
 
-function Register() {
+const REGISTER_USER_REQUEST = gql`
+  mutation register($username: String!, $email: String!, $password: String!) {
+    register(
+      registerInput: { username: $username, email: $email, password: $password }
+    ) {
+      id
+      email
+      username
+      createdAt
+    }
+  }
+`
+
+function Register(props) {
+  const { loading, onChange, onSubmit, errors, values } = useForm(() => {
+    props.history.push('/')
+  }, REGISTER_USER_REQUEST)
+
   return (
-    <div>
-      <h1>Register Page</h1>
-    </div>
+    <Container style={{ width: 400 }}>
+      <Header as="h1" textAlign="center">
+        Register
+      </Header>
+      <Form onSubmit={onSubmit} noValidate loading={loading}>
+        <Form.Input
+          label="Username"
+          placeholder="Username"
+          name="username"
+          type="text"
+          value={values.username}
+          error={errors.username}
+          onChange={onChange}
+        />
+        <Form.Input
+          label="Email"
+          placeholder="Email"
+          name="email"
+          type="email"
+          value={values.email}
+          error={errors.email}
+          onChange={onChange}
+        />
+        <Form.Input
+          label="Password"
+          placeholder="Password"
+          name="password"
+          type="password"
+          value={values.password}
+          error={errors.password}
+          onChange={onChange}
+        />
+        <Button type="submit" primary>
+          Register
+        </Button>
+      </Form>
+    </Container>
   )
 }
 

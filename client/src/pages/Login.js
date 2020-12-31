@@ -1,10 +1,53 @@
+import { gql } from '@apollo/client'
 import React from 'react'
+import { Button, Container, Form, Header } from 'semantic-ui-react'
+import { useForm } from '../utils/hooks'
 
-function Login() {
+const LOGIN_USER_REQUEST = gql`
+  mutation login($username: String!, $password: String!) {
+    login(username: $username, password: $password) {
+      id
+      email
+      username
+      createdAt
+    }
+  }
+`
+
+function Login(props) {
+  const { loading, onChange, onSubmit, errors, values } = useForm(() => {
+    props.history.push('/')
+  }, LOGIN_USER_REQUEST)
+
   return (
-    <div>
-      <h1>Login Page</h1>
-    </div>
+    <Container style={{ width: 400 }}>
+      <Header as="h1" textAlign="center">
+        Login
+      </Header>
+      <Form onSubmit={onSubmit} noValidate loading={loading}>
+        <Form.Input
+          label="Username"
+          placeholder="Username"
+          name="username"
+          type="text"
+          value={values.username}
+          error={errors.username}
+          onChange={onChange}
+        />
+        <Form.Input
+          label="Password"
+          placeholder="Password"
+          name="password"
+          type="password"
+          value={values.password}
+          error={errors.password}
+          onChange={onChange}
+        />
+        <Button type="submit" primary>
+          Login
+        </Button>
+      </Form>
+    </Container>
   )
 }
 

@@ -1,4 +1,4 @@
-const gql = require('graphql-tag')
+const { gql } = require('apollo-server')
 
 module.exports = gql`
   type Post {
@@ -33,7 +33,6 @@ module.exports = gql`
     username: String!
     email: String!
     password: String!
-    confirmPassword: String!
   }
   type Query {
     getPosts: [Post]

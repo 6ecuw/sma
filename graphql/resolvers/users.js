@@ -50,16 +50,8 @@ module.exports = {
         token,
       }
     },
-    async register(
-      _,
-      { registerInput: { username, password, confirmPassword, email } }
-    ) {
-      const { valid, errors } = validateRegisterInput(
-        username,
-        email,
-        password,
-        confirmPassword
-      )
+    async register(_, { registerInput: { username, password, email } }) {
+      const { valid, errors } = validateRegisterInput(username, email, password)
 
       if (!valid) {
         throw new UserInputError('Errors', { errors })
