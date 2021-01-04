@@ -1,12 +1,14 @@
 import { gql } from '@apollo/client'
-import React from 'react'
+import { useContext } from 'react'
 import { Button, Container, Form, Header } from 'semantic-ui-react'
+import { AuthContext } from '../context/auth'
 import { useForm } from '../utils/hooks'
 
 const LOGIN_USER_REQUEST = gql`
   mutation login($username: String!, $password: String!) {
     login(username: $username, password: $password) {
       id
+      token
       email
       username
       createdAt
@@ -15,9 +17,14 @@ const LOGIN_USER_REQUEST = gql`
 `
 
 function Login(props) {
-  const { loading, onChange, onSubmit, errors, values } = useForm(() => {
-    props.history.push('/')
-  }, LOGIN_USER_REQUEST)
+  const context = useContext(AuthContext)
+  const { loading, onChange, onSubmit, errors, values } = useForm(
+    (_, { data: { login: userData } }) => {
+      context.login(userData)
+      props.history.push('/')
+    },
+    LOGIN_USER_REQUEST
+  )
 
   return (
     <Container style={{ width: 400 }}>

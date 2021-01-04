@@ -1,5 +1,4 @@
 import { formatDistanceToNow } from 'date-fns'
-import React from 'react'
 import { Link } from 'react-router-dom'
 import { Button, Card, Image } from 'semantic-ui-react'
 

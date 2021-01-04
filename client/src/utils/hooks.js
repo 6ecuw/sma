@@ -12,6 +12,7 @@ export const useForm = (update, request) => {
     update,
     variables: values,
     onError(error) {
+      console.log('error=', error);
       setErrors(error.graphQLErrors[0].extensions.exception.errors)
     },
   })

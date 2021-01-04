@@ -1,6 +1,7 @@
 import { gql } from '@apollo/client'
-import React from 'react'
+import { useContext } from 'react'
 import { Button, Container, Form, Header } from 'semantic-ui-react'
+import { AuthContext } from '../context/auth'
 import { useForm } from '../utils/hooks'
 
 const REGISTER_USER_REQUEST = gql`
@@ -10,6 +11,7 @@ const REGISTER_USER_REQUEST = gql`
     ) {
       id
       email
+      token
       username
       createdAt
     }
@@ -17,9 +19,14 @@ const REGISTER_USER_REQUEST = gql`
 `
 
 function Register(props) {
-  const { loading, onChange, onSubmit, errors, values } = useForm(() => {
-    props.history.push('/')
-  }, REGISTER_USER_REQUEST)
+  const context = useContext(AuthContext)
+  const { loading, onChange, onSubmit, errors, values } = useForm(
+    (_, { data: { register: userData } }) => {
+      context.login(userData)
+      props.history.push('/')
+    },
+    REGISTER_USER_REQUEST
+  )
 
   return (
     <Container style={{ width: 400 }}>
