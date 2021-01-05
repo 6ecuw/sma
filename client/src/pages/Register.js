@@ -1,31 +1,21 @@
-import { gql } from '@apollo/client'
 import { useContext } from 'react'
 import { Button, Container, Form, Header } from 'semantic-ui-react'
 import { AuthContext } from '../context/auth'
-import { useForm } from '../utils/hooks'
-
-const REGISTER_USER_REQUEST = gql`
-  mutation register($username: String!, $email: String!, $password: String!) {
-    register(
-      registerInput: { username: $username, email: $email, password: $password }
-    ) {
-      id
-      email
-      token
-      username
-      createdAt
-    }
-  }
-`
+import { REGISTER_USER_MUTATION, useForm } from '../utils'
 
 function Register(props) {
   const context = useContext(AuthContext)
   const { loading, onChange, onSubmit, errors, values } = useForm(
+    REGISTER_USER_MUTATION,
+    {
+      username: '',
+      email: '',
+      password: '',
+    },
     (_, { data: { register: userData } }) => {
       context.login(userData)
       props.history.push('/')
-    },
-    REGISTER_USER_REQUEST
+    }
   )
 
   return (

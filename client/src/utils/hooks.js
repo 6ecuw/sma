@@ -1,18 +1,14 @@
 import { useMutation } from '@apollo/client'
 import { useState } from 'react'
 
-export const useForm = (update, request) => {
-  const [values, setValues] = useState({
-    username: '',
-    email: '',
-    password: '',
-  })
+export const useForm = (request, state, update) => {
+  const [values, setValues] = useState(state)
   const [errors, setErrors] = useState({})
   const [callback, { loading }] = useMutation(request, {
     update,
     variables: values,
     onError(error) {
-      console.log('error=', error);
+      console.log('error=', error)
       setErrors(error.graphQLErrors[0].extensions.exception.errors)
     },
   })
@@ -28,6 +24,6 @@ export const useForm = (update, request) => {
     onSubmit,
     loading,
     errors,
-    values
+    values,
   }
 }
