@@ -1,10 +1,15 @@
 import { formatDistanceToNow } from 'date-fns'
+import { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { Button, Card, Image } from 'semantic-ui-react'
+import { AuthContext } from '../context/auth'
+import LikeButton from './LikeButton'
 
 function PostCard({
-  post: { id, body, username, createdAt, commentCount, likeCount },
+  post: { id, body, username, createdAt, commentCount, likeCount, likes },
 }) {
+  const { user } = useContext(AuthContext)
+
   return (
     <Card>
       <Card.Content>
@@ -20,20 +25,13 @@ function PostCard({
         <Card.Description>{body}</Card.Description>
       </Card.Content>
       <Card.Content extra>
-        <Button
-          color="red"
-          icon="heart"
-          label={{
-            basic: true,
-            color: 'red',
-            pointing: 'left',
-            content: likeCount,
-          }}
-        />
+        <LikeButton user={user} post={{ id, likes, likeCount }} />
         <Button
           basic
           color="blue"
           icon="comment"
+          as={Link}
+          to={`post/${id}`}
           label={{
             basic: true,
             color: 'blue',
@@ -41,6 +39,9 @@ function PostCard({
             content: commentCount,
           }}
         />
+        {user && user.username === username && (
+          <Button color="red" icon="trash" floated="right" />
+        )}
       </Card.Content>
     </Card>
   )

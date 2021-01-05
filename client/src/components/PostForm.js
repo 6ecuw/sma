@@ -1,8 +1,8 @@
-import { Button, Form, Header } from 'semantic-ui-react'
+import { Button, Form } from 'semantic-ui-react'
 import { CREATE_POST_MUTATION, GET_POSTS_REQUEST, useForm } from '../utils'
 
 const PostForm = () => {
-  const { onSubmit, onChange, values } = useForm(
+  const { onSubmit, onChange, values, errors, loading } = useForm(
     CREATE_POST_MUTATION,
     { body: '' },
     (proxy, { data: { createPost } }) => {
@@ -14,18 +14,21 @@ const PostForm = () => {
         data: { getPosts: [createPost, ...data.getPosts] },
       })
       values.body = ''
+      errors.body = undefined
     }
   )
 
   return (
-    <Form onSubmit={onSubmit}>
-      <Header as="h2">Create a new post</Header>
+    <Form onSubmit={onSubmit} noValidate loading={loading}>
       <Form.Field>
         <Form.Input
           placeholder="Type something about"
+          label="Create post:"
           name="body"
+          type="text"
           value={values.body}
           onChange={onChange}
+          error={errors.body}
         />
       </Form.Field>
       <Button type="submit" primary>
