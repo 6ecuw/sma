@@ -21,6 +21,29 @@ export const GET_POSTS_REQUEST = gql`
     }
   }
 `
+
+export const GET_POST_REQUEST = gql`
+  query($postId: ID!) {
+    getPost(postId: $postId) {
+      id
+      body
+      username
+      createdAt
+      comments {
+        id
+        body
+        username
+        createdAt
+      }
+      commentCount
+      likes {
+        username
+      }
+      likeCount
+    }
+  }
+`
+
 export const LOGIN_USER_MUTATION = gql`
   mutation login($username: String!, $password: String!) {
     login(username: $username, password: $password) {
@@ -80,5 +103,11 @@ export const LIKE_POST_MUTATION = gql`
       }
       likeCount
     }
+  }
+`
+
+export const DELETE_POST_MUTATION = gql`
+  mutation deletePost($postId: ID!) {
+    deletePost(postId: $postId)
   }
 `
