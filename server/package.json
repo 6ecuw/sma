@@ -1,23 +1,22 @@
 {
-  "name": "social-media-app-MERNG",
+  "name": "sma-server",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "serve": "node index",
-    "start": "nodemon index"
+    "start": "node index"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/6ecuw/social-media-app-MERNG.git"
+    "url": "git+https://github.com/6ecuw/sma.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/6ecuw/social-media-app-MERNG/issues"
+    "url": "https://github.com/6ecuw/sma/issues"
   },
-  "homepage": "https://github.com/6ecuw/social-media-app-MERNG#readme",
+  "homepage": "https://github.com/6ecuw/sma#readme",
   "dependencies": {
     "apollo-server": "^2.19.1",
     "bcryptjs": "^2.4.3",
