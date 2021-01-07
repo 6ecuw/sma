@@ -8,7 +8,7 @@ import { setContext } from '@apollo/client/link/context'
 import App from './App'
 
 const httpLink = createHttpLink({
-  uri: '/',
+  uri: 'https://intense-mountain-94688.herokuapp.com/',
 })
 
 const authLink = setContext((_, { headers }) => {
